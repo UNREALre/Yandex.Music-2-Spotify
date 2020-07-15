@@ -1,0 +1,7 @@
+flask
+flask_wtf
+Flask-Session
+confuse
+yandex-music
+email-validator
+spotipy

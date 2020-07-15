@@ -1,0 +1,16 @@
+appName: YMUSIC2SPOTIFY
+logLevel: 0 # DEBUG
+
+app:
+  secret: 'some'
+  session_path: 'sessions'
+
+yandex:
+  client_id: 'some'
+  client_secret: 'some'
+
+spotify:
+  client_id: 'some'
+  client_secret: 'some'
+  redirect_uri: 'http://127.0.0.1:5000/'
+  cache: 'ymapp/cache'

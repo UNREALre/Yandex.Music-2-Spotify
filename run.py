@@ -1,0 +1,1 @@
+from ymapp import app

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <title>Yandex.Music to Spotify</title>
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css', v=times['css/custom.css']) }}">
+
+        <!-- Favicons -->
+	    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicons/favicon.ico') }}">
+    </head>
+<body>
+    {% import 'macros/form_error.html' as error %}
+
+    <div class="container">
+        {% set flash_messages = get_flashed_messages() %}
+        {% if flash_messages %}
+                {% for message in flash_messages %}
+                    <div class="alert alert-danger" role="alert">{{ message }}</div>
+                {% endfor %}
+        {% endif %}
+
+        <div>
+            <div class="main-content-wrapper">
+                {% block body %}{% endblock body %}
+            </div>
+        </div>
+    </div>
+
+
+    <script src="{{ url_for('static', filename='js/jq.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/datatable.css') }}" type="text/css">
+    <script src="{{ url_for('static', filename='js/datatable.js') }}"></script>
+
+    <script>
+        $(function () {
+            $('#data_table').DataTable(
+                {
+                    order: [[0, "asc"]],
+                    info: false,
+                    pageLength: 500,
+                    fnDrawCallback: function( oSettings ) {
+                        firePageEvents();
+                    }
+                }
+            );
+        });
+
+        // Default settings
+        $.extend(true, $.fn.dataTable.defaults, {
+            language: {
+                decimal: "",
+                emptyTable: "Данные отсутствуют в таблице",
+                info: "Отображение _START_ для _END_ из _TOTAL_ записей",
+                infoEmpty: "Показано с 0 по 0 из 0 записей",
+                infoFiltered: "отфильтровано из _MAX_ всего записей)",
+                infoPostFix: "",
+                thousands: ",",
+                lengthMenu: "Показать _MENU_ записей",
+                loadingRecords: "Загрузка...",
+                processing: "Обработка...",
+                search: "Поиск:",
+                zeroRecords: "Совпадающих записей не найдено",
+                paginate: {
+                    first: "Первая",
+                    last: "Последняя",
+                    next: "Следующая",
+                    previous: "Предыдущая"
+                },
+                aria: {
+                    sortAscending: ": активировать для сортировки столбца по возрастанию",
+                    sortDescending: ": активировать для сортировки столбца по убыванию"
+                }
+            }
+        });
+
+        function firePageEvents() {
+            $(".pl-box").unbind("change").on('change', function() {
+                if ($(".pl-box:checked").val()) {
+                    $(".confirm-import").removeAttr("disabled");
+                } else {
+                    $(".confirm-import").attr("disabled", "disabled");
+                }
+            });
+
+            $(".select-all").unbind("click").on("click", function(e){
+                e.preventDefault();
+                $(".pl-box").each(function(){
+                    $(this).prop("checked", "checked").trigger("change");
+                });
+            });
+        }
+    </script>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>
