@@ -2,7 +2,6 @@
 
 import os
 from config import project_root
-from yandex_music.client import Client
 
 
 def css_js_update_time(for_public=False):

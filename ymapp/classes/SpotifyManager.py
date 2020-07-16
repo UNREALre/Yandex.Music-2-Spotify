@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-from flask import session, redirect, url_for, flash
+from flask import session, flash
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth, SpotifyException
 from config import appConfig, project_root

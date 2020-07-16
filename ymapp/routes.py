@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import Blueprint, render_template, redirect, flash, request, session, url_for
-from yandex_music.client import Client, Playlist, Captcha
+from yandex_music.client import Client
 from yandex_music.exceptions import BadRequest
 from ymapp.helpers import css_js_update_time
 from ymapp.forms import AuthForm
@@ -45,7 +45,7 @@ def index():
 
     if form.validate_on_submit():
         try:
-            client = Client.from_credentials(form.login.data, form.password.data, captcha_callback=proc_captcha)
+            client = Client.from_credentials(form.login.data, form.password.data)
         except BaseException as ex:
             flash(str(ex))
         else:
@@ -97,8 +97,3 @@ def import_pl():
                            progress=100,
                            spotify_data=spotify_manager.user_data,
                            times=times)
-
-
-def proc_captcha(captcha):
-    captcha.download('captcha.png')
-    return input('Число с картинки: ')
