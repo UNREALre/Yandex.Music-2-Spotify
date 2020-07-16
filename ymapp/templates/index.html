@@ -96,7 +96,7 @@
                     <a href="{{ spotify_auth_url }}">Авторизуйтесь в Spotify.</a>
                 {% else %}
                     <form method="POST" action="">
-                        {{ form.hidden_tag() }}
+                        {{ form.csrf_token() }}
                         <div class="form-group">
                             {{ form.login.label }} {% if form.login.flags.required %}<span class="req">*</span>{% endif %}
                             {{ form.login() }}
