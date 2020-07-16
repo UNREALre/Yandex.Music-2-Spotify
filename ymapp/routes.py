@@ -2,7 +2,7 @@
 from flask import Blueprint, render_template, redirect, flash, request, session, url_for
 from yandex_music.client import Client
 from yandex_music.exceptions import BadRequest
-from ymapp.helpers import css_js_update_time
+from ymapp.helpers import css_js_update_time, init_client
 from ymapp.forms import AuthForm
 from ymapp.classes import SpotifyManager
 from ymapp.classes.SpotifyManager import auth_manager
@@ -35,23 +35,16 @@ def index():
     playlists = None
 
     if session.get('yandex_token') and not form.validate_on_submit():
-        try:
-            client = Client.from_token(session.get('yandex_token'))
-        except BaseException as ex:
-            flash(str(ex))
-        else:
+        client = init_client(token=session.get('yandex_token'))
+        if client:
             playlists = client.users_playlists_list()
             progress = 70
 
     if form.validate_on_submit():
-        try:
-            client = Client.from_credentials(form.login.data, form.password.data)
-        except BaseException as ex:
-            flash(str(ex))
-        else:
-            session['yandex_token'] = client.token
-            playlists = client.users_playlists_list()
-            progress = 70
+        client = init_client(login=form.login.data, password=form.password.data)
+        session['yandex_token'] = client.token
+        playlists = client.users_playlists_list()
+        progress = 70
 
     return render_template('index.html',
                            progress=progress,
