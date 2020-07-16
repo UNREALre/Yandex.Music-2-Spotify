@@ -20,7 +20,7 @@ def css_js_update_time(for_public=False):
 
 
 def init_client(login=None, password=None, token=None, captcha_answer=None, captcha_key=None):
-    client = None
+    client = captcha = None
     if token:
         try:
             client = Client.from_token(token)
@@ -34,8 +34,9 @@ def init_client(login=None, password=None, token=None, captcha_answer=None, capt
         except Captcha as e:
             captcha_key = e.captcha.x_captcha_key
             e.captcha.download('ymapp/static/captchas/{}_captcha.png'.format(captcha_key))
+            captcha = {
+                'file': '/static/captchas/{}_captcha.png'.format(captcha_key),
+                'cp_key': captcha_key
+            }
 
-    return (client, {
-            'file': '/static/captchas/{}_captcha.png'.format(captcha_key),
-            'cp_key': captcha_key
-        })
+    return client, captcha
