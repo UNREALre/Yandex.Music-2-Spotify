@@ -36,6 +36,6 @@ def init_client(login=None, password=None, token=None):
                 e.captcha.download('captcha.png')
 
                 captcha_key = e.captcha.x_captcha_key
-                captcha_answer = input('Число с картинки: ')
+                captcha_answer = input('Captcha: ')
 
     return client
