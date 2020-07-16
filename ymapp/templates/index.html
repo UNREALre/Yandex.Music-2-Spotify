@@ -111,6 +111,7 @@
                             <div class="form-group">
                                 <img src="{{ captcha.file }}" alt="">
                                 <input type="text" name="captcha_answer" value="" placeholder="Введите, что видите на картинке">
+                                <input type="hidden" name="cp_key" value="{{ captcha.cp_key }}">
                             </div>
                         {% endif %}
                         <div class="form-group">

@@ -37,5 +37,5 @@ def init_client(login=None, password=None, token=None, captcha_answer=None, capt
 
     return (client, {
             'file': '/static/captchas/{}_captcha.png'.format(captcha_key),
-            'key': captcha_key
+            'cp_key': captcha_key
         })
