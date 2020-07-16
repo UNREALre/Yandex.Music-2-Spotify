@@ -31,7 +31,6 @@ def init_client(login=None, password=None, token=None, captcha_answer=None, capt
     if login and password:
 
         try:
-            print("{} - {} - {} - {}".format(login, password, captcha_answer, captcha_key))
             client = Client.from_credentials(login, password, captcha_answer, captcha_key)
         except Captcha as e:
             captcha_key = e.captcha.x_captcha_key
