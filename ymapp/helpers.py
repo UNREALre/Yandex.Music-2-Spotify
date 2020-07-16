@@ -2,7 +2,8 @@
 
 import os
 from config import project_root
-from yandex_music.client import Client, Captcha
+from yandex_music.client import Client
+from yandex_music.exceptions import Captcha
 
 
 def css_js_update_time(for_public=False):
