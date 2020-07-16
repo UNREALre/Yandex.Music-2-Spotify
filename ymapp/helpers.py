@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+from flask import flash
 from config import project_root
 from yandex_music.client import Client
 from yandex_music.exceptions import Captcha
@@ -39,5 +40,7 @@ def init_client(login=None, password=None, token=None, captcha_answer=None, capt
                 'file': '/static/captchas/{}_captcha.png'.format(captcha_key),
                 'cp_key': captcha_key
             }
+        except BaseException as ex:
+            flash(str(ex))
 
     return client, captcha
