@@ -44,8 +44,6 @@ def index():
     if form.validate_on_submit():
         client, captcha = init_client(login=form.login.data, password=form.password.data,
                                       captcha_answer=form.captcha_answer.data, captcha_key=form.captcha_key.data)
-        print(client)
-        print(captcha)
         if client:
             session['yandex_token'] = client.token
             playlists = client.users_playlists_list()

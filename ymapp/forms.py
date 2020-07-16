@@ -13,6 +13,6 @@ class BaseForm(FlaskForm):
 class AuthForm(BaseForm):
     login = StringField('Логин', validators=[DataRequired(), Email()])
     password = PasswordField('Пароль', validators=[DataRequired()])
-    captcha_answer = StringField('Введите символы с картинки', validators=[DataRequired()])
-    captcha_key = HiddenField()
+    captcha_answer = StringField('Введите символы с картинки', validators=[Optional()])
+    captcha_key = HiddenField(validators=[Optional()])
     submit = SubmitField('Далее')
