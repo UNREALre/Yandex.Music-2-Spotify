@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import os
 from flask import session, redirect, url_for, flash
 import spotipy

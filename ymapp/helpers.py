@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import os
 from config import project_root
 from yandex_music.client import Client
