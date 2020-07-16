@@ -107,6 +107,12 @@
                             {{ form.password() }}
                             {% if form.password.errors %}{{ error.list(form.password.errors) }}{% endif %}
                         </div>
+                        {% if captcha %}
+                            <div class="form-group">
+                                <img src="{{ captcha.file }}" alt="">
+                                <input type="text" name="captcha_answer" value="" placeholder="Введите, что видите на картинке">
+                            </div>
+                        {% endif %}
                         <div class="form-group">
                             {{ form.submit(class='btn btn-primary') }}
                         </div>

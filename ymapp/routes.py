@@ -33,20 +33,25 @@ def index():
     times = css_js_update_time()
     form = AuthForm()
     playlists = None
+    captcha = None
 
     if session.get('yandex_token') and not form.validate_on_submit():
-        client = init_client(token=session.get('yandex_token'))
+        client, captcha = init_client(token=session.get('yandex_token'))
         if client:
             playlists = client.users_playlists_list()
             progress = 70
 
     if form.validate_on_submit():
-        client = init_client(login=form.login.data, password=form.password.data)
-        session['yandex_token'] = client.token
-        playlists = client.users_playlists_list()
-        progress = 70
+        client, captcha = init_client(login=form.login.data, password=form.password.data)
+        if client:
+            session['yandex_token'] = client.token
+            playlists = client.users_playlists_list()
+            progress = 70
+        elif captcha:
+            flash("Необходимо ввести Captcha")
 
     return render_template('index.html',
+                           captcha=captcha,
                            progress=progress,
                            spotify_data=spotify_manager.user_data,
                            spotify_auth_url=auth_url,
