@@ -113,7 +113,7 @@
                                 {{ form.captcha_answer.label }} {% if form.captcha_answer.flags.required %}<span class="req">*</span>{% endif %}
                                 {{ form.captcha_answer() }}
                                 {% if form.captcha_answer.errors %}{{ error.list(form.captcha_answer.errors) }}{% endif %}
-                                <input type="hidden" name="captcha_key" value="{{ captcha.cp_key }}">
+                                {{ form.captcha_key(value=captcha.cp_key) }}
                             </div>
                         {% endif %}
                         <div class="form-group">
